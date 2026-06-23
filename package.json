@@ -1,0 +1,14 @@
+{
+  "name": "neotravel-pricing",
+  "version": "1.0.0",
+  "description": "Moteur de devis déterministe NeoTravel — calculer_devis()",
+  "main": "src/calculer_devis.js",
+  "scripts": {
+    "test": "node --test",
+    "demo": "node demo.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}
