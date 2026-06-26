@@ -9,19 +9,30 @@ const getTime = () =>
     minute: "2-digit",
   });
 
-function ChatPage() {
-  const [messages, setMessages] = useState([
-    {
-      role: "bot",
-      text: "Bonjour 👋 Je suis l’assistant NeoTravel. Décrivez votre besoin de transport et je vous aiderai à préparer votre devis.",
-      time: getTime(),
-    },
-  ]);
+const welcomeMessage = {
+  role: "bot",
+  text: "Bonjour 👋 Je suis NeoTravel, votre assistant IA de réservation de transport de groupe. Décrivez votre besoin : ville de départ, destination, date, nombre de passagers…",
+  time: getTime(),
+};
 
+function ChatPage() {
+  const [messages, setMessages] = useState([welcomeMessage]);
   const [input, setInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  function resetConversation() {
+    setMessages([
+      {
+        ...welcomeMessage,
+        time: getTime(),
+      },
+    ]);
+    setInput("");
+    setIsTyping(false);
+  }
 
   function sendMessage() {
-    if (!input.trim()) return;
+    if (!input.trim() || isTyping) return;
 
     const userMessage = {
       role: "user",
@@ -29,32 +40,36 @@ function ChatPage() {
       time: getTime(),
     };
 
-    const botMessage = {
-      role: "bot",
-      text: "Merci pour votre demande. Pouvez-vous préciser la date du trajet, la ville de départ, la destination et le nombre de passagers ?",
-      time: getTime(),
-    };
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      userMessage,
-      botMessage,
-    ]);
-
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
+    setIsTyping(true);
+
+    // Simulation temporaire.
+    // Ton collègue remplacera cette partie par l'appel au webhook n8n.
+    setTimeout(() => {
+      const botMessage = {
+        role: "bot",
+        text: "Merci pour votre demande. Pour préparer le devis, pouvez-vous préciser la date du trajet, la ville de départ, la destination et le nombre de passagers ?",
+        time: getTime(),
+      };
+
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+      setIsTyping(false);
+    }, 900);
   }
 
   return (
     <div className="chat-page">
-      <Header />
+      <Header resetConversation={resetConversation} />
 
       <main className="chat-container">
-        <ChatWindow messages={messages} />
+        <ChatWindow messages={messages} isTyping={isTyping} />
 
         <ChatInput
           input={input}
           setInput={setInput}
           sendMessage={sendMessage}
+          isTyping={isTyping}
         />
       </main>
     </div>
