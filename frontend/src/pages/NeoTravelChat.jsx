@@ -199,8 +199,7 @@ const CSS = `
 .nt-b-bot{background:var(--mintbg);color:#1a2233;border-bottom-left-radius:4px}
 .nt-b-err{color:#B23B3B}
 .nt-inputbar{display:flex;gap:8px;padding:12px;border-top:1px solid var(--mintbg)}
-.nt-input{flex:1;border:1px solid #d8e0e6;border-radius:10px;padding:11px 14px;font-size:14.5px;font-family:var(--sans);outline:none;color:#0B1220;background:#fff}
-.nt-input::placeholder{color:#8a97a8}
+.nt-input{flex:1;border:1px solid #d8e0e6;border-radius:10px;padding:11px 14px;font-size:14.5px;font-family:var(--sans);outline:none;color:var(--navy)}
 .nt-input:focus{border-color:var(--green)}
 .nt-send{background:var(--green);color:#fff;border:none;border-radius:10px;padding:0 18px;font-size:14px;font-weight:700;cursor:pointer}
 .nt-send:disabled{opacity:.5;cursor:default}
